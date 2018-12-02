@@ -1,0 +1,70 @@
+.profileBox{
+    width: 900px;
+    height: 500px;
+}
+
+.profilePicture {
+    flex-wrap: wrap;
+    width: 300px;
+    height: 300px;
+}
+
+.profileInfo{
+    margin-left: 10px;
+    color: rgb(98, 142, 209)
+}
+
+.gradeInfo{
+    margin-right: 10px;
+    color: rgb(98, 142, 209)
+}
+
+.imageInput{
+
+}
+
+.imageButton{
+    border-radius: 8px;
+}
+
+input[type=file]{
+    background-color: #EDC34E;
+}
+
+.uploadButton{
+    margin-top: 10px;
+    border-radius: 8px;
+    background-color: #EDC34E;
+}
+
+.container{
+    display: flex;
+    order: 1;
+    flex-grow: 1;
+}
+
+.margin{
+    margin: 10px;
+}
+
+.inputDesign{
+    margin: 10px;
+    border-radius: 8px;
+}
+
+.uploadInfo{
+    margin: 10px;
+    border-radius: 8px;
+    background-color: #EDC34E;
+}
+
+.uploadButton{
+    margin: 10px;
+    border-radius: 8px;
+    background-color: #EDC34E;
+}
+
+.inputText{
+    margin-left: 10px;
+    color: rgb(98, 142, 209)
+}

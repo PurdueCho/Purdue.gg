@@ -1,0 +1,83 @@
+.homeTitle{
+    color: darkorange;
+    font-size: 12px;
+    text-align: center;
+}
+
+.homeCalander{
+    
+}
+
+.appBar{
+   
+}
+
+.leftBox{
+    flex-grow: 1;
+    margin: 10px;
+}
+
+.centerBox{
+    flex-grow: 2;
+    margin: 10px;
+}
+
+.rightBox{
+    flex-grow: 1;
+    margin: 10px;
+    
+}
+
+.lists{
+    flex-grow: 1;
+    margin-left: 15px;
+
+}
+
+.text{
+    font-size: 17px;
+    color: darkorange;
+}
+
+.homeTime{
+    font-size: 30px;
+    text-align: center;
+    color: darkorange;
+}
+
+
+.imageInput{
+    flex: 1;
+   
+}
+
+.imgCenter{
+    text-align: center;
+}
+
+.calCenter{
+    display: flex;
+    justify-content: center;
+}
+
+.timeCenter{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.forumList{
+}
+
+.container {
+    display: flex;
+    order: 1;
+    flex-grow: 1;
+}
+
+.userName{
+    font-size: 30px;
+    text-align: center;
+    color: darkorange;
+}

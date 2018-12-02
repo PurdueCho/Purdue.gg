@@ -1,0 +1,13 @@
+.container{
+    display: flex;
+    order: 1;
+    flex-grow: 1;
+}
+
+.newLine{
+    flex-wrap: wrap;
+}
+
+.submitButton{
+    margin-top: 100px;
+}
