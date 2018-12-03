@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.1.2",
     "@material-ui/icons": "^3.0.1",
+    "create-react-app": "^2.1.1",
     "dateformat": "^3.0.3",
     "evergreen-ui": "^4.7.1",
     "firebase": "^5.5.3",
