@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MySnackbar from "./mycom/MySnackbar";
 import Menu from './menu/Menu';
 // Page //
+import CourseWork from './CourseWork';
 import BoardList from './BoardList';
 import UserProfile from './UserProfile';
 import SignIn from './SignIn'; 
@@ -85,6 +86,7 @@ class Main extends React.Component {
                 <PrivateRoute uid={uid} exact path="/" component={BoardList}/>
                 <PrivateRoute uid={uid} path="/Home" component={Home}/>
                 <PrivateRoute uid={uid} path="/BoardList" component={BoardList}/>
+                <PrivateRoute uid={uid} path="/CourseWork" component={CourseWork}/>
                 <PrivateRoute uid={uid} path="/UserProfile" component={UserProfile}/>
 
                 <PublicRoute uid={uid} path="/SignIn" component={SignIn}/>

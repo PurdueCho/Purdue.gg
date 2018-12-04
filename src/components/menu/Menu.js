@@ -110,7 +110,7 @@ class Menu extends React.Component {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="title" color="inherit" noWrap className={classes.title}>
-            Project9 Ver.react
+            purdue.gg
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
