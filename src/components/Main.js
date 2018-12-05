@@ -84,7 +84,7 @@ class Main extends React.Component {
               <div className={classes.toolbar} />
               <Switch>
                 <PrivateRoute uid={uid} exact path="/" component={BoardList}/>
-                <PrivateRoute uid={uid} path="/Home" component={Home}/>
+                {/* <PrivateRoute uid={uid} path="/Home" component={Home}/> */}
                 <PrivateRoute uid={uid} path="/BoardList" component={BoardList}/>
                 <PrivateRoute uid={uid} path="/CourseWork" component={CourseWork}/>
                 <PrivateRoute uid={uid} path="/UserProfile" component={UserProfile}/>

@@ -19,12 +19,12 @@ function MenuItems(props) {
   const { classes } = props;
   return (
   <div>
-    <NavLink to="Home" className={classes.item} activeClassName="active">    
+  <NavLink to="CourseWork" className={classes.item} activeClassName="active">    
         <ListItem button>
           <ListItemIcon>
             <ForumIcon />
           </ListItemIcon>
-          <ListItemText primary="Home" />
+          <ListItemText primary="CourseWork" />
         </ListItem>
     </NavLink>
     <NavLink to="BoardList" className={classes.item} activeClassName="active">    
@@ -35,14 +35,7 @@ function MenuItems(props) {
           <ListItemText primary="Boards" />
         </ListItem>
     </NavLink>
-    <NavLink to="CourseWork" className={classes.item} activeClassName="active">    
-        <ListItem button>
-          <ListItemIcon>
-            <ForumIcon />
-          </ListItemIcon>
-          <ListItemText primary="CourseWork" />
-        </ListItem>
-    </NavLink>
+    
     <NavLink to="UserProfile" className={classes.item} activeClassName="active">    
         <ListItem button >
           <ListItemIcon>

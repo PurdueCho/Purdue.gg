@@ -12,6 +12,12 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
+import {firestore, firebaseAuth} from '../reducer/Firestore';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 const styles = theme => ({
@@ -41,6 +47,7 @@ class CheckboxList extends React.Component {
   state = {
     checked: [],
     value: '',
+    open:false,
   };
 
   handleToggle = value => () => {
@@ -59,18 +66,28 @@ class CheckboxList extends React.Component {
     );
     }
 
+
+  handleClickOpen = () => {
+      this.setState({ open: true });
+    };
+  
+  handleClose = () => {
+      this.setState({ open: false });
+      var track = this.state.value;
+      firestore.collection('users').doc(firebaseAuth.currentUser.uid).update({
+      track: track,
+      class: this.state.checked
+    })
+  };
+
   handleChange = event => {
       this.setState({ value: event.target.value });
       
   };
 
-  handleClick = () => {
-    // this.state.checked.map((number) =>
-    // console.log(this.state.checked.indexOf(number),number)
-    // );
-    console.log(this.state.value)
-    console.log(this.state.checked)
-  }
+
+    
+  
 
   render() {
     const { classes } = this.props;
@@ -79,6 +96,7 @@ class CheckboxList extends React.Component {
 
     return (
         <div>
+        {/* {console.log(firebaseAuth.currentUser.uid)} */}
         <Grid container spacing={24} >
         <Grid item xs={4}>
         <Typography variant="subtitle1" gutterBottom>
@@ -120,9 +138,28 @@ class CheckboxList extends React.Component {
       </List>
       </Grid>
       </Grid>
-      <Button variant="contained" color="secondary" disabled={isInvalid} className={classes.button} onClick={this.handleClick}>
+      <Button variant="contained" color="secondary" disabled={isInvalid} className={classes.button} onClick={this.handleClickOpen}>
         Submit
       </Button>
+                <Dialog open={this.state.open} onClose={this.handleClose}>
+                <DialogTitle>
+                    NOTICE
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText>
+                <Typography variant="button" gutterBottom color="primary" align="center">
+                    Submitted!
+                </Typography>
+
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={this.handleClose}  color="primary" autoFocus>
+                    YES
+                </Button>
+                </DialogActions>
+                </Dialog>
+
       </div>
     );
   }
