@@ -26,7 +26,7 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
         position: 'relative',
         overflow: 'auto',
-        maxHeight: 700,
+        maxHeight: 500,
         
     },
     track: {
@@ -61,9 +61,8 @@ class CheckboxList extends React.Component {
     }
 
     this.setState({
-      checked: newChecked,
-    }
-    );
+        checked: newChecked,
+      });
     }
 
 
@@ -71,13 +70,34 @@ class CheckboxList extends React.Component {
       this.setState({ open: true });
     };
   
+  componentDidMount() {
+    let id = firebaseAuth.currentUser.uid;
+    console.log(id)
+    const ref = firestore.collection('courses').doc(id);
+    ref.get().then((doc) => {
+      if (doc.exists) {
+        const board = doc.data();
+        this.setState({
+          value: board.track,
+          checked: board.class
+        });
+      } else {
+        console.log("No such document!");
+      }
+    });
+  }
+    
   handleClose = () => {
       this.setState({ open: false });
       var track = this.state.value;
       firestore.collection('users').doc(firebaseAuth.currentUser.uid).update({
-      track: track,
-      class: this.state.checked
-    })
+        track: track,
+        class: this.state.checked
+      })
+      firestore.collection('courses').doc(firebaseAuth.currentUser.uid).set({
+        track: track,
+        class: this.state.checked
+      })
   };
 
   handleChange = event => {
@@ -85,10 +105,7 @@ class CheckboxList extends React.Component {
       
   };
 
-
-    
   
-
   render() {
     const { classes } = this.props;
     const isInvalid = 
@@ -97,68 +114,68 @@ class CheckboxList extends React.Component {
     return (
         <div>
         {/* {console.log(firebaseAuth.currentUser.uid)} */}
-        <Grid container spacing={24} >
-        <Grid item xs={4}>
-        <Typography variant="subtitle1" gutterBottom>
-           Please select your track
-        </Typography>
+          <Grid container spacing={24} >
+            <Grid item xs={4}>
+              <Typography variant="subtitle1" gutterBottom>
+                Please select your track
+              </Typography>
 
-        <FormControl component="fieldset" className={classes.track}>
-        <RadioGroup
-            className={classes.track}
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-        <FormControlLabel value="Software Engineering" control={<Radio />} label="Software Engineering" />
-        <FormControlLabel value="Security" control={<Radio />} label="Security" />
-        <FormControlLabel value="Machine Intelligence" control={<Radio />} label="Machine Intelligence" />
-        <FormControlLabel value="Foundations of Computer Science" control={<Radio />} label="Foundations of Computer Science" />
-        <FormControlLabel value="Database and Information Systems" control={<Radio />} label="Database and Information Systems" />
-        <FormControlLabel value="Computer Graphics and Visualization" control={<Radio />} label="Computer Graphics and Visualization" />
-        <FormControlLabel value="Computational Science and Engineering" control={<Radio />} label="Computational Science and Engineering" />
-        </RadioGroup>
-         </FormControl> 
+              <FormControl component="fieldset" className={classes.track}>
+                <RadioGroup
+                    className={classes.track}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                  >
+                  <FormControlLabel value="Software Engineering" control={<Radio />} label="Software Engineering" />
+                  <FormControlLabel value="Security" control={<Radio />} label="Security" />
+                  <FormControlLabel value="Machine Intelligence" control={<Radio />} label="Machine Intelligence" />
+                  <FormControlLabel value="Foundations of Computer Science" control={<Radio />} label="Foundations of Computer Science" />
+                  <FormControlLabel value="Database and Information Systems" control={<Radio />} label="Database and Information Systems" />
+                  <FormControlLabel value="Computer Graphics and Visualization" control={<Radio />} label="Computer Graphics and Visualization" />
+                  <FormControlLabel value="Computational Science and Engineering" control={<Radio />} label="Computational Science and Engineering" />
+                </RadioGroup>
+              </FormControl> 
+            </Grid>
+
+            <Grid item xs={8}>
+              <Typography variant="subtitle1" gutterBottom>
+                Please select all classes you have taken
+              </Typography>
+              <List className={classes.root}>
+              {['CS 30700','CS 31400','CS 33400','CS 34800','CS 35200','CS 35300','CS 35400','CS 35500','CS 37300','CS 38100','CS 39000 - VR','CS 39000 - WAP','CS 40700','CS 40800','CS 42200','CS 42600','CS 43400','CS 44800','CS 45600','CS 47100','CS 47300','CS 47800','CS 48300','CS 48900','CS 49000 - DSO','CS 49000 - SWS','CS 51400','CS 51500','STAT 41600','STAT 51200','MA 41600'].map(value => ( 
+                <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
+                  <Checkbox
+                    checked={this.state.checked.indexOf(value) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                  />
+                  <ListItemText primary={`${value}`} />
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
         </Grid>
-
-        <Grid item xs={8}>
-        <Typography variant="subtitle1" gutterBottom>
-           Please select all classes you have taken
+        <Button variant="contained" color="secondary" disabled={isInvalid} className={classes.button} onClick={this.handleClickOpen}>
+          Submit
+        </Button>
+        <Dialog open={this.state.open} onClose={this.handleClose}>
+        <DialogTitle>
+            NOTICE
+        </DialogTitle>
+        <DialogContent>
+        <DialogContentText>
+        <Typography variant="button" gutterBottom color="primary" align="center">
+            Submitted!
         </Typography>
-        <List className={classes.root}>
-        {['CS 30700','CS 31400','CS 33400','CS 34800','CS 35200','CS 35300','CS 35400','CS 35500','CS 37300','CS 38100','CS 39000 - VR','CS 39000 - WAP','CS 40700','CS 40800','CS 42200','CS 42600','CS 43400','CS 44800','CS 45600','CS 47100','CS 47300','CS 47800','CS 48300','CS 48900','CS 49000 - DSO','CS 49000 - SWS','CS 51400','CS 51500','STAT 41600','STAT 51200','MA 41600'].map(value => ( 
-          <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
-            <Checkbox
-              checked={this.state.checked.indexOf(value) !== -1}
-              tabIndex={-1}
-              disableRipple
-            />
-            <ListItemText primary={`${value}`} />
-          </ListItem>
-        ))}
-      </List>
-      </Grid>
-      </Grid>
-      <Button variant="contained" color="secondary" disabled={isInvalid} className={classes.button} onClick={this.handleClickOpen}>
-        Submit
-      </Button>
-                <Dialog open={this.state.open} onClose={this.handleClose}>
-                <DialogTitle>
-                    NOTICE
-                </DialogTitle>
-                <DialogContent>
-                <DialogContentText>
-                <Typography variant="button" gutterBottom color="primary" align="center">
-                    Submitted!
-                </Typography>
 
-                </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                <Button onClick={this.handleClose}  color="primary" autoFocus>
-                    YES
-                </Button>
-                </DialogActions>
-                </Dialog>
+        </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+        <Button onClick={this.handleClose}  color="primary" autoFocus>
+            YES
+        </Button>
+        </DialogActions>
+        </Dialog>
 
       </div>
     );

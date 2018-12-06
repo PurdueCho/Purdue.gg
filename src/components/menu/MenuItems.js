@@ -27,6 +27,14 @@ function MenuItems(props) {
           <ListItemText primary="CourseWork" />
         </ListItem>
     </NavLink>
+    <NavLink to="Show" className={classes.item} activeClassName="active">    
+        <ListItem button>
+          <ListItemIcon>
+            <ForumIcon />
+          </ListItemIcon>
+          <ListItemText primary="GG" />
+        </ListItem>
+    </NavLink>
     <NavLink to="BoardList" className={classes.item} activeClassName="active">    
         <ListItem button>
           <ListItemIcon>

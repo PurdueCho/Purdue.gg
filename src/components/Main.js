@@ -12,7 +12,7 @@ import CourseWork from './CourseWork';
 import BoardList from './BoardList';
 import UserProfile from './UserProfile';
 import SignIn from './SignIn'; 
-import Home from './Home';
+import Show from './Show';
 
 
 import {login} from '../reducer/App_reducer';
@@ -84,10 +84,11 @@ class Main extends React.Component {
               <div className={classes.toolbar} />
               <Switch>
                 <PrivateRoute uid={uid} exact path="/" component={BoardList}/>
-                {/* <PrivateRoute uid={uid} path="/Home" component={Home}/> */}
                 <PrivateRoute uid={uid} path="/BoardList" component={BoardList}/>
                 <PrivateRoute uid={uid} path="/CourseWork" component={CourseWork}/>
                 <PrivateRoute uid={uid} path="/UserProfile" component={UserProfile}/>
+                <PrivateRoute uid={uid} path="/Show" component={Show}/>
+
 
                 <PublicRoute uid={uid} path="/SignIn" component={SignIn}/>
                 <PublicRoute uid={uid} component={NoMatch}/>
