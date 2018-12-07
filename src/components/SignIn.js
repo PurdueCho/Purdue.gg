@@ -150,8 +150,8 @@ class SignIn extends React.Component {
           control={<Checkbox value="remember" color="primary" checked={remember} onChange={this.handleCheckChange('remember')} />}
           label="Remember me"/>
 
-        <Button type="submit" fullWidth variant="raised" color="primary" className={classes.submit}>Sign in</Button>
-        <Button fullWidth variant="raised" className={classes.submit} onClick={this.handleRegister}>Create Account</Button>
+        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign in</Button>
+        <Button fullWidth variant="contained" className={classes.submit} onClick={this.handleRegister}>Create Account</Button>
         </form>
       </Paper>
       </main>

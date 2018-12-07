@@ -21,7 +21,7 @@ function MyFloatingButton(props) {
   return (
     <div>
       <Tooltip title="new Post">
-        <Button variant="fab" color="secondary" className={classes.absolute} onClick={props.handleClick}>
+        <Button variant="contained" color="secondary" className={classes.absolute} onClick={props.handleClick}>
           <AddIcon />
         </Button>
       </Tooltip>
