@@ -1,25 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import dateFormat from 'dateformat';
 import { withStyles } from '@material-ui/core/styles';
 import {firestore, firebaseAuth} from '../reducer/Firestore';
 import Data from './Data';
 
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import PhotoIcon from '@material-ui/icons/PermIdentity';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 
-import {board_read} from '../reducer/App_reducer';
 
-import MyImage from './mycom/MyImage';
-import MyDialog4Board from './mycom/MyDialog4Board';
-import MyFloatingButton from './mycom/MyFloatingButton';
 
 const styles = theme => ({
   root: {
@@ -48,23 +36,13 @@ let course_stats = [];
 class Show extends React.Component {
     constructor () {
         super();
-        
+        course_stats = [];
     }
+
   state = {
     
   };  
 
-  _getCourse ( index ) {
-    const ref = firestore.collection('courses');
-    ref.where("class", "array-contains", index).get()
-        .then(querySnapshot => {
-            const count = querySnapshot.size
-            console.log(count)
-            // course_stats[index] = count;
-            return count;
-        });
-  }
-  
   componentDidMount() {
     for ( var i in course ) {
         let title = course[i];
@@ -72,38 +50,40 @@ class Show extends React.Component {
         ref.where("class", "array-contains", course[i]).get()
             .then(querySnapshot => {
                 const count = querySnapshot.size
+ 
                 course_stats.push({
-                    title: title,
-                    value: count,
+                    label: title,
+                    y: count,
                 });
+                this.setState({
+                    courses: course_stats,
+                })
             });
     }
-    
     console.log(course_stats)
-    this.setState({
-        courses: course_stats,
-    })
   }
   
+
   _renderStats = () => {
     const courses = this.state.courses;
-    console.log("courses: ", courses)
-    const data = this.state.courses.map((course, i) => {
-          //console.log(movie)
-          return <Data
-            key={i}
-            title={course.title}
-            value={course.value} />
-        })
-    return data
+    if (course_stats)
+        console.log("courses: ", course_stats)
+    else 
+        console.log("not yet")
+
+    return <Data courses = {courses}/>
+
   }
 
   render() {
     const { classes } = this.props; 
-    const { data } = this.state;
-    const { l } = course_stats;
     if (this.state.courses) {
         console.log(this.state.courses)
+        // return (
+        //     <ul>
+        //         {course_stats.map(d => <li key={d.title}>{d.title} - {d.value}</li>)}
+        //     </ul>
+        // )
         return (
             <div>
                 <Typography variant="title" gutterBottom align="center">
@@ -111,7 +91,6 @@ class Show extends React.Component {
                 </Typography>
                 <h1>chart will be here</h1>
                 {this._renderStats()}
-                
             </div>
         )
     } else {
